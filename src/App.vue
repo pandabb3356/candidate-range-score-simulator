@@ -79,7 +79,7 @@
                 </template>
                 <div class="panel-content">
                   <ScoreVariableTable
-                    :evaluator="initEvalulator(candidateRange)"
+                    :evaluator="initEvaluator(candidateRange)"
                     :variable-notations="scoreFormula.variableNotations || []"
                   ></ScoreVariableTable>
                 </div>
@@ -104,11 +104,11 @@ import TimeLine from "./components/TimeLine";
 import ScoreVariableTable from "./components/formula/ScoreVariableTable";
 import SimulatorSettings from "./components/simulator/SimulatorSettings";
 
-import { DEFAULT_INDIDACTOR } from "@/evaluator/indidactor";
+import { DEFAULT_INDICATOR } from "@/evaluator/indicator";
 
 import { isNumber, round, orderBy, cloneDeep } from "lodash";
 
-import { initEvalulator } from "@/evaluator/factory";
+import { initEvaluator } from "@/evaluator/factory";
 
 import * as notation from "@/formula/notation";
 
@@ -142,7 +142,7 @@ export default {
     candidateRanges: [],
     form: {
       spaceCategory: "ROOM",
-      indidactor: cloneDeep(DEFAULT_INDIDACTOR),
+      indicator: cloneDeep(DEFAULT_INDICATOR),
       preferStart: new Date("2022-09-06 18:45"),
     },
   }),
@@ -155,8 +155,8 @@ export default {
     },
     highScoreThreshold() {
       return (
-        this.form.indidactor.multiplier.MATCHED_SUGGEST_TIME_RANGE *
-        this.form.indidactor.constant.MAX_TIME_DIST
+        this.form.indicator.multiplier.MATCHED_SUGGEST_TIME_RANGE *
+        this.form.indicator.constant.MAX_TIME_DIST
       );
     },
     initRanges() {
@@ -203,8 +203,8 @@ export default {
       this.calculateCandidateRangesScores();
     },
     getRangeScore(range) {
-      const evaluator = this.initEvalulator(range);
-      return evaluator.calculateScore(this.preferStart, this.form.indidactor);
+      const evaluator = this.initEvaluator(range);
+      return evaluator.calculateScore(this.preferStart, this.form.indicator);
     },
     setRangeScoreInfo(range) {
       this.$set(range, "score", this.getRangeScore(range));
@@ -227,25 +227,25 @@ export default {
       }
       return "is-danger";
     },
-    initEvalulator(range) {
-      return initEvalulator(this.form.spaceCategory, range);
+    initEvaluator(range) {
+      return initEvaluator(this.form.spaceCategory, range);
     },
     buildScoreFormula(range) {
-      const evaluator = this.initEvalulator(range);
+      const evaluator = this.initEvaluator(range);
       return evaluator.buildCalculateScoreFormula(
         this.preferStart,
-        this.form.indidactor
+        this.form.indicator
       );
     },
   },
   watch: {
-    "form.indidactor.influencer.Q": function () {
+    "form.indicator.influencer.Q": function () {
       this.calculateCandidateRangesScores();
     },
-    "form.indidactor.influencer.SR": function () {
+    "form.indicator.influencer.SR": function () {
       this.calculateCandidateRangesScores();
     },
-    "form.indidactor.influencer.DP": function () {
+    "form.indicator.influencer.DP": function () {
       this.calculateCandidateRangesScores();
     },
     "form.category": function () {

@@ -7,9 +7,9 @@ const evaluatorClassMap = {
   [SPACE_CATEGORY.DESK]: DeskBookingEvaluator
 };
 
-const initEvalulator = (category, range) => {
+const initEvaluator = (category, range) => {
   const evaluatorClass = evaluatorClassMap[category] || RoomBookingEvaluator;
   return new evaluatorClass(range.start, range.end);
 };
 
-export { initEvalulator };
+export { initEvaluator };

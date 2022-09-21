@@ -2,7 +2,7 @@ import { diffHourMinute, quarterDist, toMoment } from "@/utils/time-utils";
 import * as scoreNotation from "@/formula/notation";
 import { SPACE_CATEGORY } from "@/space/types";
 
-import { DEFAULT_INDIDACTOR, SUGGEST_TIME_RANGE_MAP } from "./indidactor";
+import { SUGGEST_TIME_RANGE_MAP } from "./indicator";
 
 class SpaceBookingEvaluator {
   constructor(start, end) {
@@ -124,9 +124,4 @@ class DeskBookingEvaluator extends SpaceBookingEvaluator {
   }
 }
 
-export {
-  SpaceBookingEvaluator,
-  RoomBookingEvaluator,
-  DeskBookingEvaluator,
-  DEFAULT_INDIDACTOR
-};
+export { SpaceBookingEvaluator, RoomBookingEvaluator, DeskBookingEvaluator };

@@ -117,19 +117,19 @@
           <SimulatorInfluencerSetting
             :influencer-key="scoreNotation.influencerDP.key"
             :label="scoreNotation.influencerDP.key"
-            v-model="form.indidactor.influencer.DP"
+            v-model="form.indicator.influencer.DP"
           ></SimulatorInfluencerSetting>
           <br />
           <SimulatorInfluencerSetting
             :influencer-key="scoreNotation.influencerSR.key"
             :label="scoreNotation.influencerSR.key"
-            v-model="form.indidactor.influencer.SR"
+            v-model="form.indicator.influencer.SR"
           ></SimulatorInfluencerSetting>
           <br />
           <SimulatorInfluencerSetting
             :influencer-key="scoreNotation.influencerQ.key"
             :label="scoreNotation.influencerQ.key"
-            v-model="form.indidactor.influencer.Q"
+            v-model="form.indicator.influencer.Q"
           ></SimulatorInfluencerSetting>
         </div>
       </div>
@@ -153,38 +153,17 @@
 import SimulatorFormula from "./SimulatorFormula";
 import SimulatorInfluencerSetting from "./SimulatorInfluencerSetting";
 
-import {
-  DEFAULT_INDIDACTOR,
-  SUGGEST_TIME_RANGE_MAP,
-} from "@/evaluator/indidactor";
+import { SUGGEST_TIME_RANGE_MAP } from "@/evaluator/indicator";
 
 import { isConflict } from "@/utils/time-utils";
 import * as notation from "@/formula/notation";
 
-import {
-  merge,
-  round,
-  isNumber,
-  isEmpty,
-  padStart,
-  cloneDeep,
-  orderBy,
-} from "lodash";
-
-import {
-  RoomBookingEvaluator,
-  DeskBookingEvaluator,
-} from "@/evaluator/evaluator";
+import { merge, round, isNumber, isEmpty, padStart } from "lodash";
 
 const formatTime = (time) => {
   return time
     ? `${padStart(time.getHours(), 2, 0)}:${padStart(time.getMinutes(), 2, 0)}`
     : "";
-};
-
-const evaluatorClassMap = {
-  ROOM: RoomBookingEvaluator,
-  DESK: DeskBookingEvaluator,
 };
 
 export default {
@@ -220,7 +199,7 @@ export default {
         start: null,
         end: null,
       },
-      indidactor: "",
+      indicator: "",
       category: "",
       preferStart: new Date(),
     },
@@ -291,11 +270,11 @@ export default {
             [notation.parameterP.key]: this.preferStart,
           },
         },
-        this.form.indidactor,
+        this.form.indicator,
         {
           [notation.NOTATION_TYPE.CONSTANT]: merge(
             {},
-            this.form.indidactor.constant,
+            this.form.indicator.constant,
             {
               [notation.constantSTR.key]: this.STR,
             }
@@ -307,7 +286,7 @@ export default {
   methods: {
     init() {
       this.initForumla();
-      this.form.indidactor = this.settings.indidactor;
+      this.form.indicator = this.settings.indicator;
       this.form.category = this.settings.spaceCategory;
       this.form.preferStart = this.settings.preferStart;
       this.invalidRanges = this.initRanges.invalid;
