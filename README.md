@@ -2,4 +2,4 @@
 This simulator is for calculating score of candidate range.
 
 ## Demo
-* [codesandbox](https://codesandbox.io/s/vue2-range-score-simulator-ytltst)
+* [codesandbox](https://codesandbox.io/s/github/pandabb3356/candidate-range-score-simulator)
